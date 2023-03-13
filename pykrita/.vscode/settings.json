@@ -1,0 +1,15 @@
+{
+    "python.formatting.provider": "autopep8",
+    "python.linting.flake8Enabled": false,
+    "editor.formatOnSave": false,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportMissingImports": "none"
+    },
+    "[python]": {
+        "editor.rulers": [
+            72,
+            79
+        ],
+    },
+}

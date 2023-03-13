@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ActionCollection version="2" name="Scripts">
+  <Actions category="Scripts">
+    <text>Direct Eraser</text>
+
+    <Action name="direct_eraser/Toggle">
+      <icon></icon>
+      <text>Toggle</text>
+      <whatsThis></whatsThis>
+      <toolTip>Toggle Betwwen Direct Brush And Eraser</toolTip>
+      <iconText></iconText>
+      <activationFlags>10000</activationFlags>
+      <activationConditions>0</activationConditions>
+      <shortcut></shortcut>
+      <isCheckable>false</isCheckable>
+      <statusTip></statusTip>
+    </Action>
+
+  </Actions>
+</ActionCollection>
