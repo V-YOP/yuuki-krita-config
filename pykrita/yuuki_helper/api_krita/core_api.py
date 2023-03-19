@@ -153,7 +153,7 @@ class KritaInstance:
             timer = QTimer()
             def onMainWindowCreated():
                 timer.timeout.connect(helper)
-                timer.start(1000)
+                timer.start(self._BRUSH_PRESET_CHANGED_DELAY)
             def onApplicationClosing():
                 timer.stop()
             appNotifier = self.instance.notifier()

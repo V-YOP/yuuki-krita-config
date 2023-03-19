@@ -17,7 +17,7 @@
 
 
 from PyQt5.QtWidgets import QWidget, QToolButton, QDockWidget, QVBoxLayout, QSizePolicy, QScrollArea
-from PyQt5.QtCore import Qt, QSize, QPoint
+from PyQt5.QtCore import Qt, QSize, QPoint, QRect
 from .ntscrollareacontainer import ntScrollAreaContainer
 from .nttogglevisiblebutton import ntToggleVisibleButton
 from krita import Krita
@@ -36,6 +36,7 @@ class ntWidgetPad(QWidget):
             )
         self.setLayout(QVBoxLayout())
         self.layout().setContentsMargins(4,4,4,4)
+        # self.layout().set(34)
         self.alignment = 'left'
 
         # Members to hold a borrowed widget and it's original parent docker for returning
@@ -74,7 +75,7 @@ class ntWidgetPad(QWidget):
 
             globalTargetPos = QPoint()
             if self.alignment == 'left':
-                globalTargetPos = view.mapToGlobal(QPoint(self.rulerMargin(), 0))
+                globalTargetPos = view.mapToGlobal(QPoint(0, 0)) # self.rulerMargin()
             elif self.alignment == 'right':
                 globalTargetPos = view.mapToGlobal(QPoint(view.width() - self.width() - self.scrollBarMargin(), 0))
 
@@ -97,7 +98,6 @@ class ntWidgetPad(QWidget):
                 self.widget = ntScrollAreaContainer(docker.widget())
             else:
                 self.widget = docker.widget()
-
             self.layout().addWidget(self.widget) 
             self.adjustToView()        
             self.widgetDocker.hide()
@@ -127,30 +127,30 @@ class ntWidgetPad(QWidget):
         """
         Resize the Pad to an appropriate size that fits within the subwindow."""
         view = self.activeView()
-
-        if view:
+        if not view:
+            return
             
-            ### GOAL: REMOVE THIS IF-STATEMENT
-            if isinstance(self.widget, ntScrollAreaContainer):
-                containerSize = self.widget.sizeHint() 
-                
-                if view.height() < containerSize.height() + self.btnHide.height() + 14 + self.scrollBarMargin():
-                    containerSize.setHeight(view.height() - self.btnHide.height() - 14 - self.scrollBarMargin())
-
-                if view.width() < containerSize.width() + 8 + self.scrollBarMargin():
-                    containerSize.setWidth(view.width() - 8 - self.scrollBarMargin())
-                
-                self.widget.setFixedSize(containerSize)
-
-
-            newSize = self.sizeHint()
-            if view.height() < newSize.height():
-                newSize.setHeight(view.height())
-
-            if view.width() < newSize.width():
-                newSize.setWidth(view.width())
+        ### GOAL: REMOVE THIS IF-STATEMENT
+        if isinstance(self.widget, ntScrollAreaContainer):
+            containerSize = self.widget.sizeHint() 
             
-            self.resize(newSize)
+            if view.height() < containerSize.height() + self.btnHide.height() + 14 + self.scrollBarMargin():
+                containerSize.setHeight(view.height() - self.btnHide.height() - 14 - self.scrollBarMargin())
+
+            if view.width() < containerSize.width() + 8 + self.scrollBarMargin():
+                containerSize.setWidth(view.width() - 8 - self.scrollBarMargin())
+            
+            self.widget.setFixedSize(containerSize)
+
+
+        newSize = self.sizeHint()
+        if view.height() < newSize.height():
+            newSize.setHeight(view.height())
+
+        if view.width() < newSize.width():
+            newSize.setWidth(view.width())
+        
+        self.resize(newSize)
 
 
     def returnDocker(self):

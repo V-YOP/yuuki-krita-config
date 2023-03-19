@@ -15,6 +15,7 @@ def modifyToolBox():
         Tool.REFERENCE,
         Tool.FILL,
         Tool.TRANSFORM,
+        Tool.TEXT,
         # 'InteractionTool',
         # 'PathTool',
         # 'SvgTextTool',
